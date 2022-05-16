@@ -1,7 +1,7 @@
 # installation
 pip install -r requirements.txt
 
-download chromedriver pass to the Artin_final folder
+download chromedriver pass to the main folder
 gi
 # run
 
