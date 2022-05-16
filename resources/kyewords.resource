@@ -1,11 +1,9 @@
 *** Settings ***
 Library    SeleniumLibrary
 Library    String
+Resource    ../resources/variables.resource
 
 *** Variables ***
-
-${contains}    xpath=//a[contains(text(), '{}')]
-${price_check}    xpath=//div[@id="snippet--cart-content-data"]//div[@class="c-product-card__price u-bold"]
 @{Price_range}      50    90
 
 *** Keywords ***
@@ -15,15 +13,15 @@ Setup Keyword
     Accept Cookies
 
 Accept Cookies
-    Wait Until Page Contains Element    xpath=//a[@class="c-privacy-prompt__cta e-button e-button--simple e-button--small"]
-    Click Element    xpath=//a[@class="c-privacy-prompt__cta e-button e-button--simple e-button--small"]
+    Wait Until Page Contains Element    ${cookies_suhlas}
+    Click Element    ${cookies_suhlas}
 
-Heureka pop-up
+Heureka notifikacia
     Sleep    10
-    Wait Until Page Contains Element    xpath=//button[@id="onesignal-slidedown-cancel-button"]
-    Click Element    xpath=//button[@id="onesignal-slidedown-cancel-button"]
+    Wait Until Page Contains Element    ${neskor}
+    Click Element    ${neskor}
 
-Wait and click
+Pockaj a klikaj
     [Arguments]    ${x}    ${timeout}=10 sec
     Wait Until Page Contains Element    ${x}    timeout=${timeout}
     Click Element    ${x}
@@ -35,8 +33,8 @@ Pridavame produkt
     Wait Until Page Contains Element    ${prod}    timeout=15
     Click Element    ${prod}
     Wait Until Page Contains    ${PRODUKT}
-    wait and click    xpath=//span[contains(text(), 'Kúpiť na Heureke')]
-    Wait Until Page Contains Element    xpath=//p[contains(text(), 'Tovar sme pridali do košíka')]
+    Pockaj a klikaj    ${kupit_na_heureke}
+    Wait Until Page Contains Element    ${pridaj_do_kosika}
     Go To    ${URL}
 
 Kontrola ceny produktu
