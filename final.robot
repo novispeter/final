@@ -1,17 +1,19 @@
 *** Settings ***
 Library    SeleniumLibrary
 Resource    ../resources/kyewords.resource
+Resource    ../resources/variables.resource
+
 Test Setup    Setup Keyword
 Test Teardown     Close Browser
 
 *** Test Cases ***
 100 Adding and removing items from cart
-    Heureka pop-up
-    wait and click     xpath=//a[@href="https://inspiracia.heureka.sk/tipy-na-grilovanie-a-piknik/"]
-    Scroll Element Into View    xpath=/html/body/div[3]/div[1]/div/div/div/div[3]/div/div/div[1]/div/div/section/div/div/div[2]/ul/li[3]/section/a[1]
-    Click Element    xpath=/html/body/div[3]/div[1]/div/div/div/div[3]/div/div/div[1]/div/div/section/div/div/div[2]/ul/li[3]/section/div/div/div/a
-    wait and click     xpath=//label[@for='price-2']
-    Wait Until Page Contains Element    xpath=//strong[contains(text(),'Grily 50 – 90')]    timeout=15
+    Heureka notifikacia
+    Pockaj a klikaj     ${tipy_na_grilovanie_a_piknik}
+    Scroll Element Into View    ${scroll_na_prenosne_grily}
+    Click Element     ${prenosne_grily}
+    Pockaj a klikaj     ${cena_50-90}
+    Wait Until Page Contains Element    ${cakanie_na_nacitanie_cien_50-90}    timeout=15
     ${url}    Get Location
     log    ${url}
     Pridavame produkt    Tefal GC 205012    ${url}    Grily 50 – 90
@@ -21,21 +23,21 @@ Test Teardown     Close Browser
     Wait Until Page Contains    Tefal GC 205012
     Wait Until Page Contains    Gril Cattara KEG stolný
     Wait Until Page Contains    JATA GR195
-    ${prod_1_cena}    Get Text    xpath=(//div[@class='c-product-card__price u-bold'])[1]
-    ${prod_2_cena}    Get Text    xpath=(//div[@class='c-product-card__price u-bold'])[2]
-    ${prod_3_cena}    Get Text    xpath=(//div[@class='c-product-card__price u-bold'])[3]
+    ${prod_1_cena}    Get Text    ${ziskanie_ceny_1_produktu}
+    ${prod_2_cena}    Get Text    ${ziskanie_ceny_2_produktu}
+    ${prod_3_cena}    Get Text    ${ziskanie_ceny_3_produktu}
     Kontrola ceny produktu    ${prod_1_cena}
     Kontrola ceny produktu    ${prod_2_cena}
     Kontrola ceny produktu    ${prod_3_cena}
     Sleep    5
-    Click Element    xpath=(//a[@class="c-product-card__close c-modal__toggle js-modal__toggle e-action"])[1]
-    wait and click    xpath=//*[@id="snippet--cart-content-data"]/div[3]/div[1]/div/div[1]/section/div/footer/a
+    Click Element    ${odstranenie_produktu_z_kosika}
+    Pockaj a klikaj    ${potvrdenie_odstranenia_produktu_z_kosika}
     Sleep    5
-    Click Element    xpath=(//a[@class="c-product-card__close c-modal__toggle js-modal__toggle e-action"])[1]
-    wait and click    xpath=//*[@id="snippet--cart-content-data"]/div[3]/div[1]/div/div[1]/section/div/footer/a
+    Click Element    ${odstranenie_produktu_z_kosika}
+    Pockaj a klikaj    ${potvrdenie_odstranenia_produktu_z_kosika}
     Sleep    5
-    Click Element    xpath=(//a[@class="c-product-card__close c-modal__toggle js-modal__toggle e-action"])[1]
-    wait and click    xpath=//*[@id="snippet--cart-content-data"]/div[3]/div[1]/div/div[1]/section/div/footer/a
+    Click Element    ${odstranenie_produktu_z_kosika}
+    Pockaj a klikaj    ${potvrdenie_odstranenia_produktu_z_kosika}
     Sleep    5
     Page Should Contain    Váš košík zíva prázdnotou...
 
