@@ -1,7 +1,7 @@
 # installation
 pip install -r requirements.txt
 
-download chromedriver pass to the main folder
+download chromedriver pass to the main folder where the test is located
 
 # run
 
